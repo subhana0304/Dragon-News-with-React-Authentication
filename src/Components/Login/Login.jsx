@@ -3,12 +3,14 @@ import { Button, Container, Form } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
 import { useContext } from 'react';
+import useTitle from '../../hooks/useTitle';
 
 const Login = () => {
 
     const { logIn } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
+    useTitle('Login');
     // console.log(location);
     const from = location.state?.from?.pathname || '/category/0';
 
@@ -25,6 +27,7 @@ const Login = () => {
         .then(result =>{
             const loggedUser = result.user;
             console.log(loggedUser);
+            form.reset();
             navigate(from, {replace: true})
         })
         .catch(error =>{

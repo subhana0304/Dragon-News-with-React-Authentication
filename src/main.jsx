@@ -19,6 +19,8 @@ import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import Terms from './Components/Terms/Terms';
+import About from './Components/About/About';
+import Career from './Components/Career/Career';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Navigate to="/category/0"></Navigate>
+      },
+      {
+        path: '/about',
+        element: <About></About>
+      },
+      {
+        path: '/career',
+        element: <Career></Career>
       },
       {
         path: '/login',

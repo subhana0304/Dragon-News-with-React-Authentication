@@ -1,13 +1,21 @@
 import React from 'react';
 import { useContext } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
 import { useState } from 'react';
+import useTitle from '../../hooks/useTitle';
 
 const Register = () => {
     const { createUser } = useContext(AuthContext);
     const [accepted, setAccepted] = useState(false);
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    console.log(location);
+    useTitle('Rgister')
+
+    const from = location.state?.from?.pathname || '/category/0';
 
     const handleAccepted = event =>{
         setAccepted(event.target.checked);
@@ -21,10 +29,13 @@ const Register = () => {
         const password = form.password.value;
 
         console.log(name, email, password);
+
         createUser(email, password)
         .then(result => {
             const createdUser = result.user;
             console.log(createdUser);
+            form.reset();
+            navigate(from, {replace: true})
         })
         .catch(error =>{
             console.log(error);
